@@ -67,4 +67,18 @@ class HallController extends Controller
         }
         return null;
     }
+
+    /**
+     * Set hall active status
+     *
+     * @param  int  $id
+     * @param  bool  $is_active
+     * @return \Illuminate\Http\Response
+     */
+    public function setActive(int  $id, bool  $is_active)
+    {
+        $hall = Hall::findOrFail($id);
+        $hall->is_active = $is_active;
+        return $hall->save();
+    }
 }

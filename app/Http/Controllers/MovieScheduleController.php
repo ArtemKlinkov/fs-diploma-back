@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MovieScheduleRequest;
 use App\Models\MovieSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,27 +23,12 @@ class MovieScheduleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\MovieScheduleRequest  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(MovieScheduleRequest $request)
     {
-        $this->destroy($request->json()->all()[0]["hall_id"]);
-
-        foreach ($request->json() as $value) {
-            $newSeatRequest = new \Illuminate\Http\Request($value);
-            $validator = Validator::make($newSeatRequest->all(), [
-                'hall_id' => ['required', 'int'],
-                'movie_id' => ['required', 'int'],
-                'start_time' => ['required', 'time'],
-            ]);
-            if ($validator->fails()) {
-                return redirect('/')
-                    ->withErrors($validator)
-                    ->withInput();
-            }
-            MovieSchedule::create($validator->validated());
-        }
+        return MovieSchedule::create($request->validated());
     }
 
     /**

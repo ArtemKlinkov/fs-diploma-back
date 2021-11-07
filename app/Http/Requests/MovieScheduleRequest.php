@@ -16,7 +16,7 @@ class MovieScheduleRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -29,7 +29,7 @@ class MovieScheduleRequest extends FormRequest
         return [
             'hall_id' => ['required', 'int'],
             'movie_id' => ['required', 'int'],
-            'start_time' => ['required', 'time'],
+            'start_time' => ['required', 'date_format:H:i'],
         ];
     }
 

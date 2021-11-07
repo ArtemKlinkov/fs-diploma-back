@@ -29,6 +29,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         \App\Http\Controllers\HallController::class
     );
 
+    Route::post(
+        '/hall/{id}/active/{is_active}',
+        [\App\Http\Controllers\HallController::class, 'setActive']
+    );
+
     Route::apiResource(
         '/hall_conf',
         \App\Http\Controllers\HallConfController::class
